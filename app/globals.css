@@ -1,0 +1,40 @@
+@import "tailwindcss";
+
+:root {
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  color: #17352d;
+  background: #fbfcf8;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background: #fbfcf8;
+}
+
+button,
+a,
+input {
+  font-family: inherit;
+}
+
+@keyframes positive-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-10px) rotate(1deg); }
+}
+
+.positive-orb {
+  animation: positive-float 6s ease-in-out infinite;
+  background:
+    radial-gradient(circle at 40% 35%, rgba(255, 255, 255, .55), transparent 18%),
+    linear-gradient(145deg, #f1a092 0%, #ec765b 52%, #d95e49 100%);
+}
