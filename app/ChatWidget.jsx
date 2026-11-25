@@ -13,7 +13,7 @@ const MORE_CHIPS = ['Take a screening', 'Book a counsellor']
 
 const WELCOME = {
   role: 'assistant',
-  text: "Hi, I'm Dr Positive 💙\nYour calm space to talk, breathe and reflect. There's no judgement here.\n\nHow are you feeling today?",
+  text: "Hi, I'm Dr Positive 💙\nYour calm space to talk, breathe and reflect. There's no judgement here.\n\nType anything on your mind or about our services, and I will guide you.",
   chips: START_CHIPS,
   time: Date.now(),
 }
@@ -227,12 +227,24 @@ const faqs = [
 ]
 
 const FALLBACKS = [
-  "I want to understand you better. Could you tell me a little more about how you're feeling? You can also pick an option below.",
-  "I'm listening. Tell me more, or choose something that fits where you are right now.",
+  "I'm here to help with stress, anxiety, sleep, relationships and our services. Tell me in a few words what you need, or pick an option below.",
+  "You can type anything about your mental wellbeing or our services. For personal guidance, our experts are one tap away.",
 ]
+
+const PORTAL = `${SITE}/portal/experts`
 
 function normalize(s) {
   return s.toLowerCase().replace(/[’‘]/g, "'")
+}
+
+// No counter-questions: drop trailing question lines, then point to the portal.
+function withPortal(text) {
+  const lines = text.split('\n')
+  while (lines.length && (lines[lines.length - 1].trim() === '' || lines[lines.length - 1].trim().endsWith('?'))) lines.pop()
+  let body = lines.join('\n').trim()
+  body = body.replace(/[^.!?\n]*\?\s*$/, '').trim()
+  if (body.includes('/portal/experts')) return body
+  return `${body}\n\nFor personal support, book an expert on our portal:\n${PORTAL}`
 }
 
 // Score every topic by how many of its keywords appear; the best score wins.
@@ -253,9 +265,11 @@ function getReply(text, turn) {
     }
   }
   if (best) {
-    return { text: best.replies[turn % best.replies.length], chips: best.chips, crisis: !!best.crisis }
+    const raw = best.replies[turn % best.replies.length]
+    if (best.crisis) return { text: raw, chips: best.chips, crisis: true }
+    return { text: withPortal(raw), chips: best.chips, crisis: false }
   }
-  return { text: FALLBACKS[turn % FALLBACKS.length], chips: START_CHIPS }
+  return { text: withPortal(FALLBACKS[turn % FALLBACKS.length]), chips: START_CHIPS }
 }
 
 function formatTime(ts) {
