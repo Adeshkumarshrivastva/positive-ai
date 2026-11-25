@@ -1,6 +1,7 @@
 // Server-side proxy to the Claude API. The key never reaches the browser.
 const MODEL = process.env.ANTHROPIC_MODEL || 'claude-haiku-5-5'
 const API_URL = 'https://api.anthropic.com/v1/messages'
+const FREE_API_URL = 'https://text.pollinations.ai/openai'
 
 const SYSTEM_PROMPT = `You are Dr Positive, the AI guide of Positive AI Innovations Private Limited (Positive Mind Care, Gurugram).
 
@@ -72,8 +73,25 @@ export async function POST(request) {
     return Response.json({ error: 'No message' }, { status: 400 })
   }
 
-  // No (real) key yet -> tell the client to use its built-in offline replies.
-  if (!hasRealKey()) return Response.json({ fallback: true }, { status: 503 })
+  // No Anthropic key -> use a free, keyless provider (Pollinations). Any failure -> client offline replies.
+  if (!hasRealKey()) {
+    try {
+      const r = await fetch(FREE_API_URL, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ model: 'openai', stream: false, messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages] }),
+        signal: AbortSignal.timeout(25_000),
+      })
+      if (!r.ok) throw new Error('free api ' + r.status)
+      const data = await r.json()
+      const text = String(data?.choices?.[0]?.message?.content || '').trim()
+      if (!text) throw new Error('empty')
+      return new Response(text, { headers: { 'content-type': 'text/plain; charset=utf-8', 'cache-control': 'no-store' } })
+    } catch (e) {
+      console.error('Free API failed', e?.message)
+      return Response.json({ fallback: true }, { status: 503 })
+    }
+  }
 
   let upstream
   try {
