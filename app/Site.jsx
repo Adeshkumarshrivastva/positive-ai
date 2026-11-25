@@ -64,7 +64,7 @@ export default function Site({ html }) {
         ok.textContent = 'Please add your name, a valid email and a message.'
         return
       }
-      const subject = `${v('f-topic')} — ${v('f-name')}${v('f-org') ? ' (' + v('f-org') + ')' : ''}`
+      const subject = `Website enquiry — ${v('f-name')}${v('f-org') ? ' (' + v('f-org') + ')' : ''}`
       const body = `${v('f-msg')}\n\n${v('f-name')}\n${v('f-email')}${v('f-org') ? '\n' + v('f-org') : ''}`
       const href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
       ok.className = 'ok show'
