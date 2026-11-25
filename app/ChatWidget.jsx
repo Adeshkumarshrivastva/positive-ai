@@ -390,13 +390,13 @@ function normalize(s) {
   return s.toLowerCase().replace(/[’‘]/g, "'")
 }
 
-// No counter-questions: drop trailing question lines, then point to the portal.
-function withPortal(text) {
+// No counter-questions: drop trailing question lines, then point to the portal only after the conversation has warmed up (turn >= 2).
+function withPortal(text, addCta) {
   const lines = text.split('\n')
   while (lines.length && (lines[lines.length - 1].trim() === '' || lines[lines.length - 1].trim().endsWith('?'))) lines.pop()
   let body = lines.join('\n').trim()
   body = body.replace(/[^.!?\n]*\?\s*$/, '').trim()
-  if (body.includes('/portal/experts')) return body
+  if (!addCta || body.includes('/portal/experts')) return body
   return `${body}\n\nFor personal support, book an expert on our portal:\n${PORTAL}`
 }
 
@@ -420,9 +420,9 @@ function getReply(text, turn) {
   if (best) {
     const raw = best.replies[turn % best.replies.length]
     if (best.crisis) return { text: raw, chips: best.chips, crisis: true }
-    return { text: withPortal(raw), chips: best.chips, crisis: false }
+    return { text: withPortal(raw, turn >= 2), chips: best.chips, crisis: false }
   }
-  return { text: withPortal(FALLBACKS[turn % FALLBACKS.length]), chips: START_CHIPS }
+  return { text: withPortal(FALLBACKS[turn % FALLBACKS.length], turn >= 2), chips: START_CHIPS }
 }
 
 function formatTime(ts) {

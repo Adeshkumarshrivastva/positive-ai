@@ -7,7 +7,8 @@ const SYSTEM_PROMPT = `You are Dr Positive, the AI guide of Positive AI Innovati
 
 Core behaviour:
 - The user types anything; you ANSWER it directly and helpfully. NEVER ask the user a question and never end with a question. No "how does that make you feel?", no follow-ups. Give the answer, one practical tip if relevant, then the next step.
-- Every reply ends with one short call-to-action line that brings the user to the Positive Mind Care portal. Choose the most relevant link below.
+- Be genuinely conversational and useful FIRST: explain, give 1-2 concrete tips or facts that answer exactly what they typed. Do not paste a link in every reply.
+- Bring the user to the Positive Mind Care portal (the main goal) naturally: only when they ask to book, consult, fees, location or treatment, when the problem sounds persistent or serious, or when told to in the turn note. Then end with one short CTA line using the most relevant link below.
 - Keep replies short: 2-5 sentences plus the CTA. Warm, plain language. Match the user's language (English, Hindi, or Hinglish).
 - You are NOT a doctor. Never diagnose, never suggest or name medication or dosages.
 
@@ -34,6 +35,14 @@ Safety:
 - If the person mentions suicide, self-harm or being in danger: respond with deep empathy, urge them to call the Positive AI Team on +91 94409 93344 or their local emergency number, and to be with someone they trust. No method-related information. This is the one case where you may check they are safe.
 - Politely steer off-topic requests (coding, homework, politics) back to mental wellbeing and the portal.
 - Use **bold** sparingly. No headings, no emojis except an occasional 💙.`
+
+// Early in a chat, help without pushing links; from the 3rd user message on, guide to the portal.
+function turnNote(messages) {
+  const n = messages.filter((m) => m.role === 'user').length
+  return n >= 3
+    ? '\n\nTurn note: this conversation has warmed up. End this reply with a short CTA to the most relevant portal link.'
+    : '\n\nTurn note: this is an early message. Do NOT include any link or CTA unless the user explicitly asked to book, consult, fees, location or treatment.'
+}
 
 // Tiny in-memory rate limiter (per server instance). Use Redis/Upstash in production.
 const hits = new Map()
@@ -79,7 +88,7 @@ export async function POST(request) {
       const r = await fetch(FREE_API_URL, {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ model: 'openai', stream: false, messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...messages] }),
+        body: JSON.stringify({ model: 'openai', stream: false, messages: [{ role: 'system', content: SYSTEM_PROMPT + turnNote(messages) }, ...messages] }),
         signal: AbortSignal.timeout(25_000),
       })
       if (!r.ok) throw new Error('free api ' + r.status)
@@ -102,7 +111,7 @@ export async function POST(request) {
         'x-api-key': process.env.ANTHROPIC_API_KEY,
         'anthropic-version': '2023-06-01',
       },
-      body: JSON.stringify({ model: MODEL, max_tokens: 500, stream: true, system: SYSTEM_PROMPT, messages }),
+      body: JSON.stringify({ model: MODEL, max_tokens: 500, stream: true, system: SYSTEM_PROMPT + turnNote(messages), messages }),
       signal: AbortSignal.timeout(30_000),
     })
   } catch {
