@@ -211,6 +211,159 @@ const faqs = [
     chips: START_CHIPS,
   },
   {
+    id: 'tms',
+    weight: 8,
+    keys: ['tms', 'deep tms', 'brainsway', 'magnetic', 'magnet'],
+    replies: [
+      `**Deep TMS** (BrainsWay) is a non-invasive treatment that uses magnetic pulses to stimulate the brain areas linked to mood. It is used for conditions such as depression, OCD, anxiety, addiction and smoking cessation. There are no needles, no surgery and no anaesthesia. Positive Mind Care is India's first dedicated BrainsWay Deep TMS centre.\n\nDetails: ${SITE}/deep-tms`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'fees',
+    weight: 8,
+    keys: ['fee', 'fees', 'price', 'cost', 'charges', 'charge', 'rate', 'kitna', 'paisa', 'paise', 'free', 'discount'],
+    replies: [
+      `Fees depend on the service and the expert, so they are shared when you book. New clients can ask about a free consultation. See experts and book here, or WhatsApp us for rates:\n${SITE}/portal/experts\n${WHATSAPP}`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'location',
+    weight: 8,
+    keys: ['address', 'location', 'where', 'clinic', 'centre', 'center', 'gurgaon', 'gurugram', 'visit', 'kahan', 'direction'],
+    replies: [
+      `Our clinic is at **GF-43, M2K Corporate Park, N Block, Mayfield Garden, Sector 51, Gurugram, Haryana 122018**. Phone / WhatsApp: **+91 89205 30832**. Online sessions are also available.\n\nBook here: ${SITE}/portal/experts`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'online',
+    weight: 6,
+    keys: ['online', 'virtual', 'video', 'remote', 'from home'],
+    replies: [
+      `Yes, you can consult psychologists, psychiatrists and counsellors online (virtual) or visit the clinic in Gurugram. Pick an expert and time that suits you:\n${SITE}/portal/experts`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'services',
+    weight: 6,
+    keys: ['service', 'services', 'treatment', 'treat', 'what do you do', 'kya karte', 'program', 'programs'],
+    replies: [
+      `Positive Mind Care offers:\n• Psychiatrist consultation\n• Psychological counselling (individual, child and teen, family, women's mental health, trauma, workplace)\n• Deep TMS treatment\n• Psychological testing (IQ, ADHD, autism, personality and more)\n• Free tools: Mind Check, anxiety and depression screenings\n• Corporate, student and school wellness programmes\n\nAll services: ${SITE}/services`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'ocd',
+    weight: 7,
+    keys: ['ocd', 'obsessive', 'compulsive', 'compulsion', 'obsession'],
+    replies: [
+      `OCD means repeated unwanted thoughts and urges to repeat certain actions, and it is treatable. Therapy and Deep TMS are both options our experts can discuss with you. A quick OCD quiz: ${SITE}/quiz/ocd-quiz`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'addiction',
+    weight: 7,
+    keys: ['addiction', 'addicted', 'alcohol', 'drinking', 'drugs', 'smoking', 'smoke', 'cigarette', 'tobacco', 'gaming', 'porn'],
+    replies: [
+      `Addiction is a health condition, not a weakness, and help works. We offer counselling and psychiatric support, and Deep TMS for smoking cessation and addiction. A quick check: ${SITE}/quiz/addiction-quiz`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'child',
+    weight: 6,
+    keys: ['child', 'children', 'kid', 'kids', 'teen', 'teenager', 'adolescent', 'son', 'daughter', 'bachcha', 'bacche'],
+    replies: [
+      `We offer counselling for children and adolescents, plus assessments for ADHD, autism and learning difficulties. Parents are guided through every step. Book an expert here: ${SITE}/portal/experts`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'medicine',
+    weight: 7,
+    keys: ['medicine', 'medication', 'tablet', 'pills', 'dose', 'dosage', 'antidepressant', 'prescription', 'dawai'],
+    replies: [
+      `I can't advise on medicines or doses, and please don't start or stop any on your own. A psychiatrist can review your situation properly. Consult one online or in clinic here: ${SITE}/portal/experts`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'company',
+    weight: 5,
+    keys: ['positive ai', 'positive mind care', 'about', 'company', 'founder', 'founders', 'team'],
+    replies: [
+      `Positive AI Innovations builds AI-powered mental health tools, and Positive Mind Care is the clinical centre in Gurugram. Co-founders are Akhilesh Srivastava and Sandra Srivastava. Learn more: ${SITE}/about-us`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'corporate',
+    weight: 6,
+    keys: ['corporate', 'employee', 'employees', 'hr', 'organisation', 'organization', 'university', 'franchise', 'workshop', 'camp'],
+    replies: [
+      `We run corporate programmes (HR assistance, employee mental health), student and school wellness, workshops and wellness camps. Share your requirement here: ${SITE}/contact-us`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'mindcheck',
+    weight: 6,
+    keys: ['mind check', 'mindcheck', 'quiz', 'self test'],
+    replies: [
+      `**Mind Check** is a private 20-question yes/no check on stress, sleep, focus and mood, and it gives you a personalised score. Start here: ${SITE}/mind-check`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'anger',
+    weight: 5,
+    keys: ['anger', 'angry', 'irritable', 'irritated', 'frustrated', 'gussa', 'rage', 'temper'],
+    replies: [
+      `Anger is often stress or hurt in disguise. In the moment, step away, take 5 slow breaths (in 4, out 6) and wait a few minutes before replying. If it keeps happening, counselling helps a lot. Book here: ${SITE}/portal/experts`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'grief',
+    weight: 5,
+    keys: ['grief', 'died', 'death', 'loss', 'passed away', 'mourning'],
+    replies: [
+      `I'm so sorry for your loss. Grief has no timeline, and every feeling is allowed. Be gentle with sleep, food and company, and lean on people you trust. A grief counsellor can support you: ${SITE}/portal/experts`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'focus',
+    weight: 5,
+    keys: ['focus', 'concentrate', 'concentration', 'distracted', 'procrastinate', 'procrastination', 'motivation', 'lazy'],
+    replies: [
+      `Try working in 25-minute blocks with a 5-minute break, and keep your phone out of reach. If focus problems have lasted a long time, an ADHD assessment can help: ${SITE}/adhd-assessment`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'confidence',
+    weight: 5,
+    keys: ['confidence', 'self esteem', 'self-esteem', 'insecure', 'inferiority', 'shy', 'shyness', 'failure'],
+    replies: [
+      `Low confidence can change with small steps: note one thing you did well each day and avoid comparing yourself with others' highlights. Counselling can speed this up. Book here: ${SITE}/portal/experts`,
+    ],
+    chips: [],
+  },
+  {
+    id: 'bipolar',
+    weight: 5,
+    keys: ['bipolar', 'schizophrenia', 'psychosis', 'hallucination', 'voices', 'mood swings', 'ptsd', 'trauma'],
+    replies: [
+      `These conditions need a proper evaluation by a psychiatrist, and early help makes a big difference. I can't diagnose, but our experts can. Book a consultation here: ${SITE}/portal/experts`,
+    ],
+    chips: [],
+  },
+  {
     id: 'thanks',
     weight: 2,
     keys: ['thank', 'thanks', 'thankyou', 'shukriya', 'ok', 'okay'],
@@ -227,8 +380,8 @@ const faqs = [
 ]
 
 const FALLBACKS = [
-  "I'm here to help with stress, anxiety, sleep, relationships and our services. Tell me in a few words what you need, or pick an option below.",
-  "You can type anything about your mental wellbeing or our services. For personal guidance, our experts are one tap away.",
+  `I'm here for stress, anxiety, sleep, relationships and everything about Positive Mind Care: counselling, psychiatrist consultation, Deep TMS, psychological tests and our free Mind Check (${SITE}/mind-check). Type your question in a few words and I will guide you.`,
+  `I may not have the exact answer, but our experts will. You can also WhatsApp us on +91 89205 30832 or browse all services at ${SITE}/services.`,
 ]
 
 const PORTAL = `${SITE}/portal/experts`
@@ -462,7 +615,7 @@ export default function ChatWidget({ open, onClose }) {
   if (!open) return null
 
   const last = messages[messages.length - 1]
-  const chips = !typing && last.role === 'assistant' && !last.streaming ? last.chips || [] : []
+  const chips = []
   const hasCrisis = messages.some((m) => m.crisis)
 
   return (
