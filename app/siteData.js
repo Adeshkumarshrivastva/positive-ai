@@ -88,7 +88,7 @@ const person=(m,big)=>`<div class="card person${big?' lead-card':''}"><img src="
 out["leaders"]=LEADERS.map(m=>person(m,true)).join('');
 out["advisors"]=ADV.map(m=>person(m)).join('');
 out["clinical"]=CLIN.map(m=>person(m)).join('');
-out["teamPreview"]=[LEADERS[0],LEADERS[1],CLIN[0]].map(m=>`<div class="person"><img src="${IMG[m.img]}" alt="${m.name}"><h3>${m.name}</h3><span class="r">${m.r}</span><p>${m.bio.split('. ')[0].replace(/\.$/,'')}.</p></div>`).join('');
+out["teamPreview"]=[LEADERS[0],LEADERS[1]].map(m=>`<div class="person"><img src="${IMG[m.img]}" alt="${m.name}"><h3>${m.name}</h3><span class="r">${m.r}</span><p>${m.bio.split('. ')[0].replace(/\.$/,'')}.</p></div>`).join('');
 
 for(const p of PRODUCTS){
  const others=PRODUCTS.filter(o=>o!==p);
